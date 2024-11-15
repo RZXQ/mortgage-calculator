@@ -13,7 +13,7 @@ public class Calculator {
 
 	private static final String MORTGAGE = "Mortgage: ";
 
-	private static final int MONTHS_IN_A_YEAR = 12;
+	private static final int MONTHS_IN_YEAR = 12;
 
 	private static final int PERCENT = 100;
 
@@ -28,42 +28,35 @@ public class Calculator {
 			if (principal >= 1000 && principal <= 1000000) {
 				break;
 			}
-			else {
-				System.out.println("Enter a value between 1000 and 1000000");
-			}
+			System.out.println("Enter a value between 1000 and 1000000");
 		}
 
-		double annualInterestRate;
+		double monthlyInterestRate;
 		while (true) {
 			System.out.print(ANNUAL_INTEREST_RATE);
-			annualInterestRate = SCANNER.nextDouble();
+			double annualInterestRate = SCANNER.nextDouble();
 			if (annualInterestRate >= 1 && annualInterestRate <= 30) {
+				monthlyInterestRate = annualInterestRate / PERCENT / MONTHS_IN_YEAR;
 				break;
 			}
-			else {
-				System.out.println("Enter a value between 1 and 30");
-			}
+			System.out.println("Enter a value between 1 and 30");
 		}
 
-		int years;
+		int numberOfPayments;
 		while (true) {
 			System.out.print(PERIOD);
-			years = SCANNER.nextInt();
+			int years = SCANNER.nextInt();
 			if (years >= 1 && years <= 30) {
+				numberOfPayments = years * MONTHS_IN_YEAR;
 				break;
 			}
-			else {
-				System.out.println("Enter a value between 1 and 30");
-			}
+			System.out.println("Enter a value between 1 and 30");
 		}
-
-		int numberOfPayments = years * MONTHS_IN_A_YEAR;
-		double monthlyInterestRate = annualInterestRate / PERCENT / MONTHS_IN_A_YEAR;
 
 		double mortgage = calculateMortgage(principal, monthlyInterestRate, numberOfPayments);
 
-		String formattedMortage = NumberFormat.getCurrencyInstance().format(mortgage);
-		System.out.println(MORTGAGE + formattedMortage);
+		String mortageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
+		System.out.println(MORTGAGE + mortageFormatted);
 
 	}
 
