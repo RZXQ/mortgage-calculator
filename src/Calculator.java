@@ -11,22 +11,24 @@ public class Calculator {
 
 	private static final String MORTGAGE = "Mortgage: ";
 
-	private static final int MONTH_IN_A_YEAR = 12;
+	private static final int MONTHS_IN_A_YEAR = 12;
+
+	private static final int PERCENT = 100;
 
 	private static final Scanner SCANNER = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		System.out.println(PRINCIPAL);
+		System.out.print(PRINCIPAL);
 		int principal = SCANNER.nextInt();
 
-		System.out.println(ANNUAL_INTEREST_RATE);
+		System.out.print(ANNUAL_INTEREST_RATE);
 		double annualInterestRate = SCANNER.nextDouble();
 
-		System.out.println(PERIOD);
+		System.out.print(PERIOD);
 		int years = SCANNER.nextInt();
+		int numberOfPayments = years * MONTHS_IN_A_YEAR;
 
-		double monthlyInterestRate = annualInterestRate / MONTH_IN_A_YEAR;
-		int numberOfPayments = years * MONTH_IN_A_YEAR;
+		double monthlyInterestRate = annualInterestRate / PERCENT / MONTHS_IN_A_YEAR;
 
 		double mortgage = calculateMortgage(principal, monthlyInterestRate, numberOfPayments);
 		String formattedMortage = NumberFormat.getCurrencyInstance().format(mortgage);
@@ -35,7 +37,7 @@ public class Calculator {
 	}
 
 	public static double calculateMortgage(int principal, double monthlyInterestRate, int numberOfPayments) {
-		return (principal + monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
+		return (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
 				/ (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
 	}
 
