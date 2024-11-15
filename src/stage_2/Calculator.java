@@ -21,18 +21,47 @@ public class Calculator {
 
 	public static void main(String[] args) {
 		System.out.print(PRINCIPAL);
-		int principal = SCANNER.nextInt();
 
-		System.out.print(ANNUAL_INTEREST_RATE);
-		double annualInterestRate = SCANNER.nextDouble();
+		int principal;
+		while (true) {
+			principal = SCANNER.nextInt();
+			if (principal >= 1000 && principal <= 1000000) {
+				break;
+			}
+			else {
+				System.out.println("Enter a value between 1000 and 1000000");
+			}
+		}
 
-		System.out.print(PERIOD);
-		int years = SCANNER.nextInt();
+		double annualInterestRate;
+		while (true) {
+			System.out.print(ANNUAL_INTEREST_RATE);
+			annualInterestRate = SCANNER.nextDouble();
+			if (annualInterestRate >= 1 && annualInterestRate <= 30) {
+				break;
+			}
+			else {
+				System.out.println("Enter a value between 1 and 30");
+			}
+		}
+
+		int years;
+		while (true) {
+			System.out.print(PERIOD);
+			years = SCANNER.nextInt();
+			if (years >= 1 && years <= 30) {
+				break;
+			}
+			else {
+				System.out.println("Enter a value between 1 and 30");
+			}
+		}
+
 		int numberOfPayments = years * MONTHS_IN_A_YEAR;
-
 		double monthlyInterestRate = annualInterestRate / PERCENT / MONTHS_IN_A_YEAR;
 
 		double mortgage = calculateMortgage(principal, monthlyInterestRate, numberOfPayments);
+
 		String formattedMortage = NumberFormat.getCurrencyInstance().format(mortgage);
 		System.out.println(MORTGAGE + formattedMortage);
 
